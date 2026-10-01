@@ -1,6 +1,6 @@
-# Canteen Wala — Canteen Billing App
+# Hotel Management System
 
-A full-stack canteen ordering & billing app: browse a menu, add to cart, pay through a
+A hotel ordering & billing app: browse a menu, add to cart, pay through a
 (dummy) payment gateway, get a pickup token, and track your order. Includes an admin
 panel for managing the menu and orders.
 
@@ -11,7 +11,7 @@ panel for managing the menu and orders.
 ## Architecture
 
 ```
-Canteen-Billing-App/
+hotel-management-system/
 ├── app/                      # Next.js frontend (App Router)
 │   ├── page.js               # Customer app (auth, menu, cart, checkout, history)
 │   └── admin/page.js         # Admin panel (menu CRUD + order management)
@@ -39,9 +39,7 @@ Canteen-Billing-App/
 - **Stock is only decremented after a successful payment**, inside a transaction with a
   `stock_quantity >= qty` guard so items can't be oversold.
 - **Payments** go through a swappable mock gateway (`src/services/mockGateway.js`) that mimics
-  a real provider's create → charge → verify-signature flow. Swapping in Razorpay later is
-  mostly a one-file change.
-
+  a real provider's create → charge → verify-signature flow.
 ---
 
 ## Getting started
@@ -75,20 +73,13 @@ Open http://localhost:3000, register a customer account (or log in as the admin 
 
 ---
 
-## Payment flow (mock gateway)
+## Payment flow 
 
 1. `POST /api/orders` → server validates stock, computes the total from DB prices, creates a
    **pending** order, and returns a `providerOrderId`.
 2. `POST /api/payments/verify` `{ providerOrderId, method, simulateFailure }` → the mock gateway
    "charges", the server verifies the signature, decrements stock, marks the order **paid**, and
    assigns a daily **pickup token**.
-
-The checkout screen has a *"Simulate a failed payment"* toggle to demonstrate the failure path.
-
-### Swapping in Razorpay later
-Razorpay's test mode is free. Replace `mockGateway.js` with real Razorpay calls, load the
-checkout script on the frontend, and keep the same two-step (create order → verify) flow. No
-real money moves in test mode.
 
 ---
 

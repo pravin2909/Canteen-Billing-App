@@ -1,7 +1,7 @@
 {
-  "name": "canteen-backend",
+  "name": "hotel-management-backend",
   "version": "1.0.0",
-  "description": "Canteen Billing App — Express + PostgreSQL API",
+  "description": "Hotel Management System — Express + PostgreSQL API",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
