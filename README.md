@@ -1,4 +1,4 @@
-# Canteen Wala — Canteen Billing App
+# Canteen Wala 
 
 A full-stack canteen ordering & billing app: browse a menu, add to cart, pay through a
  payment gateway, get a pickup token, and track your order. Includes an admin
